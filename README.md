@@ -7,6 +7,8 @@
 > * **현지화(Localization)**: 평가자의 이해를 돕기 위해 기존 시스템의 한글 필드명과 마스터 데이터를 모두 영어로 변환하여 구성했습니다.
 > * **데이터 보안(Data Privacy)**: 기업의 민감 정보 보호를 위해 모든 실제 데이터는 **가데이터(Synthetic Data)**로 대체되었으며, 이는 보안 정책을 준수합니다.
 
+<img width="2547" height="1312" alt="image" src="https://github.com/user-attachments/assets/c91dad01-401c-4249-a8fc-ab976e315606" />
+
 ---
 
 ## 🏗️ 시스템 아키텍처
