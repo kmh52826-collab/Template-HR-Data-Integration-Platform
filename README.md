@@ -1,38 +1,42 @@
-# HR Data Integration Platform
+# HR 데이터 통합 플랫폼 (HR Data Integration Platform)
 ### Enterprise-Unified Analytics for Global Subsidiaries
 
-> **An End-to-End Data Engineering Solution for Heterogeneous HR Data Integration and Master Data Management (MDM).**
-
-
-<img width="1849" height="1036" alt="image" src="https://github.com/user-attachments/assets/a9ecf389-5344-4fc5-8e37-79f5856b0b5e" />
-
----
-## 🏗️ System Architecture
-### **Executive Summary**
-This project establishes a robust, scalable data platform to integrate fragmented HR datasets from over 10 subsidiaries. By leveraging **Azure Databricks** for ETL and **BI-Matrix** for a custom MDM interface, the system solves the challenge of inconsistent code systems across different ERPs without additional licensing costs.
+> **10여 개 계열사의 이기종 HR 데이터를 통합하고 표준화하기 위한 엔드투엔드(End-to-End) 데이터 엔지니어링 솔루션입니다.**
+>
+> **[데이터 처리 및 현지화 안내]**
+> * **현지화(Localization)**: 평가자의 이해를 돕기 위해 기존 시스템의 한글 필드명과 마스터 데이터를 모두 영어로 변환하여 구성했습니다.
+> * **데이터 보안(Data Privacy)**: 기업의 민감 정보 보호를 위해 모든 실제 데이터는 **가데이터(Synthetic Data)**로 대체되었으며, 이는 보안 정책을 준수합니다.
 
 ---
 
-## 🌟 Key Technical Achievements
-
-### 1. Heterogeneous Data Integration & Standardization
-* **Problem**: Inconsistent employee/department codes across 10+ subsidiaries prevented group-wide analytics.
-* **Solution**: Developed a unified data schema using the **Medallion Architecture** (Bronze, Silver, Gold layers) on **Delta Lake**.
-
-### 2. Cost-Effective Master Data Management (MDM)
-* **Problem**: Budget constraints for purchasing professional MDM solutions.
-* **Solution**: Engineered a custom CRUD interface using **BI-Matrix** to allow HR managers to map local codes to global standards directly, saving 100% of potential software procurement costs.
-
-### 3. Advanced HR Analytics Dashboard
-* **Impact**: Delivered real-time insights into employee turnover rates, labor productivity, and group-wide workforce distribution via **Power BI**.
+## 🏗️ 시스템 아키텍처
+### **프로젝트 요약**
+본 프로젝트는 10개가 넘는 계열사의 서로 다른 HR 데이터셋을 하나의 통합 플랫폼으로 구축한 사례입니다. **Azure Databricks**를 활용한 ETL 프로세스와 **BI-Matrix**를 이용한 맞춤형 MDM 인터페이스를 통해, 추가적인 라이선스 비용 없이 각기 다른 ERP 시스템 간의 코드 불일치 문제를 해결했습니다.
 
 ---
 
-## 📂 Project Structure
+## 🌟 주요 기술적 성과
+
+### 1. 이기종 데이터 통합 및 표준화 (Heterogeneous Data Integration)
+* **문제점**: 10개 이상의 계열사가 서로 다른 ERP(더존, 자체 시스템 등)를 사용하여 사원/부서 코드가 불일치함. 이로 인해 그룹 전체 인력 현황을 하나의 기준으로 집계하거나 분석하는 것이 불가능했음.
+* **해결책**: 
+    * **MDM 기반 코드 표준화**: BI-Matrix 인터페이스를 개발하여 각 계열사의 로컬 코드를 그룹 표준 코드에 1:1 매핑하는 마스터 데이터 관리(MDM) 로직을 구현함으로써 데이터 일관성 확보.
+    * **데이터 저장 구조 최적화**: Azure Databricks 환경에서 메달리온 아키텍처(Bronze, Silver, Gold 레이어)를 도입하여, 정제되지 않은 Raw 데이터부터 분석용 표준 데이터까지 단계별 적재 및 가공 프로세스 구축.
+
+### 2. 비용 효율적인 마스터 데이터 관리(MDM) 시스템 구축
+* **문제점**: 전문 MDM 솔루션 도입을 위한 고가의 라이선스 예산 확보 및 복잡한 구축 과정의 어려움.
+* **해결책**: 이미 사내에 도입되어 있는 **BI-Matrix**를 활용하여 현업 담당자가 직접 데이터를 수정하고 매핑할 수 있는 CRUD 인터페이스를 자체 설계. 이를 통해 고가의 외부 솔루션 도입 비용을 100% 절감하고 운영 편의성 증대.
+
+### 3. 고도화된 HR 분석 대시보드 제공
+* **성과**: **Power BI**를 통해 그룹 전체의 이직률, 노동 생산성, 인력 현황 등을 실시간으로 시각화하여 데이터 기반의 경영 의사결정(Data-driven Decision Making) 지원.
+
+---
+
+## 📂 프로젝트 구조 (Project Structure)
 ```text
 ├── src/
-│   ├── etl/          # PySpark scripts for data transformation
-│   └── mdm/          # Logic for Master Data mapping and validation
+│   ├── etl/          # 데이터 변환 및 가공을 위한 PySpark 스크립트
+│   └── mdm/          # 마스터 데이터(MDM) 매핑 및 검증 로직
 ├── sql/
-│   └── schemas/      # DDL for standardized HR tables
-└── docs/             # High-resolution architecture diagrams & system design
+│   └── schemas/      # 표준화된 HR 테이블 설계를 위한 DDL 및 Query
+└── docs/             # 고해상도 아키텍처 설계도 및 프로젝트 상세 문서
