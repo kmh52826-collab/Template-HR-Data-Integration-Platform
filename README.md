@@ -7,16 +7,35 @@
 > * **현지화(Localization)**: 평가자의 이해를 돕기 위해 기존 시스템의 한글 필드명과 마스터 데이터를 모두 영어로 변환하여 구성했습니다.
 > * **데이터 보안(Data Privacy)**: 기업의 민감 정보 보호를 위해 모든 실제 데이터는 **가데이터(Synthetic Data)**로 대체되었으며, 이는 보안 정책을 준수합니다.
 
+
+### **프로젝트 요약**
+본 프로젝트는 10개가 넘는 계열사의 서로 다른 HR 데이터셋을 하나의 통합 플랫폼으로 구축한 사례입니다. **Azure Databricks**를 활용한 ETL 프로세스와 **ADF(Azure Data Factory)의 메타데이터 기반 동적 파이프라인**을 결합하여 데이터 수집·정제·적재 전 과정을 자동화하였으며, **메달리온 아키텍처(Medallion Architecture)**를 통해 고품질의 통합 데이터를 구축함으로써 **Power BI** 기반의 전사적 인사이트 시각화 체계를 구현하였습니다.
+
+---
+## 🏗️ 전체 시스템 아키텍처
 <img width="2559" height="174" alt="image" src="https://github.com/user-attachments/assets/3302ae1d-ea9d-41f5-82c3-b81828ddb2df" />
 <img width="2559" height="1439" alt="image" src="https://github.com/user-attachments/assets/ab4fdbfe-1e01-424a-8fa6-7dc76cc60ea0" />
 
 ---
+## 🏗️ Azure Data Factory Pipeline
+<img width="2556" height="745" alt="image" src="https://github.com/user-attachments/assets/e070fd3e-ed81-49df-8362-7b3167d40fd0" />
 
-## 🏗️ 시스템 아키텍처
-### **프로젝트 요약**
-본 프로젝트는 10개가 넘는 계열사의 서로 다른 HR 데이터셋을 하나의 통합 플랫폼으로 구축한 사례입니다. **Azure Databricks**를 활용한 ETL 프로세스와 **BI-Matrix**를 이용한 맞춤형 MDM 인터페이스를 통해, 추가적인 라이선스 비용 없이 각기 다른 ERP 시스템 간의 코드 불일치 문제를 해결했습니다.
+### Step 1. Logging
+* **Process:** 파이프라인 시작 시 `Initialize_Execution_Log` 프로시저를 호출하여 고유 Execution ID를 생성하고 세션 컨텍스트를 기록합니다.
+* **Engineering Rationale:** 대규모 분산 환경에서 프로세스의 **상태 추적(State Tracking)**과 **감사 추적(Audit Trail)**을 자동화하여 시스템 전체의 **관측성(Observability)**을 확보했습니다.
 
----
+### Step 2. Dynamic
+* **Process:** `Identify_Processing_Targets` (Lookup) 단계를 통해 런타임 시점에 처리해야 할 소스 리스트와 메타데이터를 동적으로 쿼리합니다.
+* **Engineering Rationale:** 비즈니스 로직과 데이터 소스를 분리하는 **디커플링(Decoupling)** 설계를 적용했습니다. 이를 통해 파이프라인 코드 수정 없이 DB 설정만으로 시스템 확장이 가능한 구조를 구현했습니다.
+
+### Step 3. Scale
+* **Process:** **ForEach 루프**를 활용하여 Apache Spark 기반의 Databricks 노트북을 병렬로 트리거하며, 각 태스크는 **지능형 재시도(Retry)** 로직을 포함합니다.
+* **Engineering Rationale:** **병렬성(Parallelism)**을 극대화하여 데이터 처리 시간을 단축하고, 개별 작업 실패가 전체 시스템 중단으로 이어지지 않도록 하는 **결함 허용(Fault Tolerance)** 능력을 강화했습니다.
+
+### Step 4. Integrity
+* **Process:** 모든 병렬 작업의 결과를 종합하여 최종 성공/실패 여부를 판별하고 시스템 상태를 업데이트합니다.
+* **Engineering Rationale:** 트랜잭션의 **원자성(Atomicity)**을 보장하기 위한 설계입니다. 모든 하위 작업이 검증된 경우에만 최종 상태를 동기화하여 하위 분석 계층에 데이터 무결성을 제공합니다.
+
 
 ## 🌟 주요 기술적 성과
 
