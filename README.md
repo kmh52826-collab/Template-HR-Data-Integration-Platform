@@ -14,27 +14,28 @@
 ---
 ## 🏗️ 전체 시스템 아키텍처
 <img width="2559" height="174" alt="image" src="https://github.com/user-attachments/assets/3302ae1d-ea9d-41f5-82c3-b81828ddb2df" />
-<img width="2559" height="1439" alt="image" src="https://github.com/user-attachments/assets/ab4fdbfe-1e01-424a-8fa6-7dc76cc60ea0" />
+<img width="2557" height="1436" alt="image" src="https://github.com/user-attachments/assets/e139007a-e937-48eb-9394-d13fa95a388d" />
 
 ---
+
 ## 🏗️ Azure Data Factory Pipeline
 <img width="2556" height="745" alt="image" src="https://github.com/user-attachments/assets/e070fd3e-ed81-49df-8362-7b3167d40fd0" />
 
 ### Step 1. Logging
-* **Process:** 파이프라인 시작 시 `Initialize_Execution_Log` 프로시저를 호출하여 고유 Execution ID를 생성하고 세션 컨텍스트를 기록합니다.
-* **Engineering Rationale:** 대규모 분산 환경에서 프로세스의 **상태 추적(State Tracking)**과 **감사 추적(Audit Trail)**을 자동화하여 시스템 전체의 **관측성(Observability)**을 확보했습니다.
+* **Process:** 파이프라인 시작 시 `SP_INS_RAW_PIP_INFO` 프로시저를 호출하여 고유 Execution ID를 생성하고 세션 컨텍스트를 기록합니다.
+* **Engineering Rationale:** 대규모 분산 환경에서 프로세스의 **상태 추적** (State Tracking) 과 **감사 추적** (Audit Trail) 을 자동화하여 시스템 전체의 **관측성** (Observability) 을 확보했습니다.
 
 ### Step 2. Dynamic
-* **Process:** `Identify_Processing_Targets` (Lookup) 단계를 통해 런타임 시점에 처리해야 할 소스 리스트와 메타데이터를 동적으로 쿼리합니다.
-* **Engineering Rationale:** 비즈니스 로직과 데이터 소스를 분리하는 **디커플링(Decoupling)** 설계를 적용했습니다. 이를 통해 파이프라인 코드 수정 없이 DB 설정만으로 시스템 확장이 가능한 구조를 구현했습니다.
+* **Process:** `Get_Order_List` (Lookup) 단계를 통해 런타임 시점에 처리해야 할 소스 리스트와 메타데이터를 동적으로 쿼리합니다.
+* **Engineering Rationale:** 비즈니스 로직과 데이터 소스를 분리하는 **디커플링** (Decoupling) 설계를 적용했습니다. 이를 통해 파이프라인 코드 수정 없이 DB 설정만으로 시스템 확장이 가능한 구조를 구현했습니다.
 
 ### Step 3. Scale
-* **Process:** **ForEach 루프**를 활용하여 Apache Spark 기반의 Databricks 노트북을 병렬로 트리거하며, 각 태스크는 **지능형 재시도(Retry)** 로직을 포함합니다.
-* **Engineering Rationale:** **병렬성(Parallelism)**을 극대화하여 데이터 처리 시간을 단축하고, 개별 작업 실패가 전체 시스템 중단으로 이어지지 않도록 하는 **결함 허용(Fault Tolerance)** 능력을 강화했습니다.
+* **Process:** **ForEach 루프**를 활용하여 Apache Spark 기반의 Databricks 노트북을 병렬로 트리거하며, 각 태스크는 **지능형 재시도** (Retry) 로직을 포함합니다.
+* **Engineering Rationale:** **병렬성** (Parallelism) 을 극대화하여 데이터 처리 시간을 단축하고, 개별 작업 실패가 전체 시스템 중단으로 이어지지 않도록 하는 **결함 허용** (Fault Tolerance) 능력을 강화했습니다.
 
 ### Step 4. Integrity
-* **Process:** 모든 병렬 작업의 결과를 종합하여 최종 성공/실패 여부를 판별하고 시스템 상태를 업데이트합니다.
-* **Engineering Rationale:** 트랜잭션의 **원자성(Atomicity)**을 보장하기 위한 설계입니다. 모든 하위 작업이 검증된 경우에만 최종 상태를 동기화하여 하위 분석 계층에 데이터 무결성을 제공합니다.
+* **Process:** 모든 병렬 작업의 결과를 종합하여 `SP_INS_RAW_PIP_INFO`를 통해 최종 성공/실패 여부를 판별하고 시스템 상태를 업데이트합니다.
+* **Engineering Rationale:** 트랜잭션의 **원자성** (Atomicity) 을 보장하기 위한 설계입니다. 모든 하위 작업이 검증된 경우에만 최종 상태를 동기화하여 하위 분석 계층에 데이터 무결성을 제공합니다.
 
 
 ## 🌟 주요 기술적 성과
