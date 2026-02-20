@@ -37,6 +37,23 @@
 * **Process:** 모든 병렬 작업의 결과를 종합하여 `SP_INS_RAW_PIP_INFO`를 통해 최종 성공/실패 여부를 판별하고 시스템 상태를 업데이트합니다.
 * **Engineering Rationale:** 트랜잭션의 **원자성** (Atomicity) 을 보장하기 위한 설계입니다. 모든 하위 작업이 검증된 경우에만 최종 상태를 동기화하여 하위 분석 계층에 데이터 무결성을 제공합니다.
 
+---
+## 🏗️ Databricks Medallion Architecture
+
+<img width="1594" height="691" alt="image" src="https://github.com/user-attachments/assets/e7d8f702-4eec-4337-9232-270f544aa38a" />
+
+* **단계별 정제 (Incremental Refinement):**
+  원천 데이터(Raw)가 **Bronze** 에서 **Silver** 로 넘어갈 때 불필요한 데이터를 걸러내고 형식을 맞추며, 마지막 **Gold** 단계에서 비즈니스 가치를 지닌 정보로 변환됩니다.
+
+* **데이터 무결성 확보:**
+  중간 단계인 **Silver** 계층에서 스키마(Schema)를 강제함으로써 하위 분석 시스템에 잘못된 데이터가 유입되는 것을 원천 차단합니다.
+
+* **비즈니스 최적화:**
+  최종 **Gold** 계층은 사용자의 요구사항에 맞게 미리 계산된(Pre-aggregated) 데이터를 제공하여 쿼리 성능을 극대화합니다.
+
+
+
+---
 
 ## 🌟 주요 기술적 성과
 
