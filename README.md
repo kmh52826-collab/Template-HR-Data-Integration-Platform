@@ -39,18 +39,16 @@
 
 ---
 ## 🏗️ Databricks Medallion Architecture
+데이터 신뢰성 확보를 위해 **Bronze(Raw) → Silver(Validated) → Gold(Enriched)** 단계로 데이터를 정제하는 레이어링 설계를 적용했습니다.
 
 <img width="1594" height="691" alt="image" src="https://github.com/user-attachments/assets/e7d8f702-4eec-4337-9232-270f544aa38a" />
 
-* **단계별 정제 (Incremental Refinement):**
-  원천 데이터(Raw)가 **Bronze** 에서 **Silver** 로 넘어갈 때 불필요한 데이터를 걸러내고 형식을 맞추며, 마지막 **Gold** 단계에서 비즈니스 가치를 지닌 정보로 변환됩니다.
+### 🛠️ 핵심 성과 (Key Value)
 
-* **데이터 무결성 확보:**
-  중간 단계인 **Silver** 계층에서 스키마(Schema)를 강제함으로써 하위 분석 시스템에 잘못된 데이터가 유입되는 것을 원천 차단합니다.
-
-* **비즈니스 최적화:**
-  최종 **Gold** 계층은 사용자의 요구사항에 맞게 미리 계산된(Pre-aggregated) 데이터를 제공하여 쿼리 성능을 극대화합니다.
-
+* **데이터 무결성:** **Silver** 단계 스키마 강제로 하위 시스템 결함 유입 차단
+* **성능 최적화:** **Gold** 단계 사전 연산으로 최종 대시보드 조회 속도 극대화
+* **장애 대응:** **Bronze** 데이터 보존으로 로직 변경 시 언제든 데이터 재구성 가능
+* **가시성 확보:** 계층 분리를 통한 데이터 흐름(Lineage) 추적 용이성 확보
 
 
 ---
