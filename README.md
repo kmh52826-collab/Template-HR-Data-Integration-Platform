@@ -43,6 +43,15 @@
 
 <img width="1594" height="691" alt="image" src="https://github.com/user-attachments/assets/e7d8f702-4eec-4337-9232-270f544aa38a" />
 
+<br>
+<br>
+
+| Layer | Status | Key Engineering Process |
+| :--- | :--- | :--- |
+| **Bronze** | **Raw** | 소스 데이터 원형 보존 및 이력 관리 |
+| **Silver** | **Validated** | **Cleaning** 및 **Schema Enforcement**를 통한 품질 표준화 |
+| **Gold** | **Enriched** | 비즈니스 로직 기반 **Aggregation** (Power BI 최적화) |
+
 ### 🛠️ 핵심 성과 (Key Value)
 
 * **데이터 무결성:** **Silver** 단계 스키마 강제로 하위 시스템 결함 유입 차단
