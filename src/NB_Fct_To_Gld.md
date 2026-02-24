@@ -758,6 +758,7 @@ SELECT COUNT(*) FROM gld.default.f_hr_language;
 
 
 ```
+%python
 # 발령 정보 통합 쿼리
 DF = spark.sql("""
 SELECT DISTINCT  
