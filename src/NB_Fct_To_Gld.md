@@ -1,4 +1,4 @@
-# HR Fact Tables ETL Pipeline
+# 🛠 ETL Logic Detail: f_hr_scholar
 --------------------------------
 #### 자격증 / 학력 / 상벌 / 어학 / 경력 / 발령
 
