@@ -1,4 +1,4 @@
-# 🛠 ETL Logic Detail
+# 🛠 HR Fact Tables ETL Pipeline Detail
 --------------------------------
 #### 자격증 / 학력 / 상벌 / 어학 / 경력 / 발령
 
