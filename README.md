@@ -23,6 +23,8 @@
 ## 🏗️ Azure Data Factory Pipeline
 <img width="2556" height="745" alt="image" src="https://github.com/user-attachments/assets/e070fd3e-ed81-49df-8362-7b3167d40fd0" />
 
+### I engineered this **Metadata-Driven Dynamic Pipeline** to ensure high scalability and automated observability.
+
 ### Step 1. Logging
 * **Process:** 파이프라인 시작 시 `SP_INS_RAW_PIP_INFO` 프로시저를 호출하여 고유 Execution ID를 생성하고 세션 컨텍스트를 기록합니다.
 * **Engineering Rationale:** 대규모 분산 환경에서 프로세스의 **상태 추적** (State Tracking) 과 **감사 추적** (Audit Trail) 을 자동화하여 시스템 전체의 **관측성** (Observability) 을 확보했습니다.
@@ -41,12 +43,9 @@
 
 ---
 ## 🏗️ Databricks Medallion Architecture
-### To ensure data reliability, we implemented a layered architecture that refines data through **Bronze (Raw) → Silver (Validated) → Gold (Enriched)** stages.
-
 <img width="1594" height="691" alt="image" src="https://github.com/user-attachments/assets/e7d8f702-4eec-4337-9232-270f544aa38a" />
 
-<br>
-<br>
+### To ensure data reliability, we implemented a layered architecture that refines data through **Bronze (Raw) → Silver (Validated) → Gold (Enriched)** stages.
 
 ---
 
@@ -58,8 +57,6 @@
 * **핵심 작업:** 시스템B(화이트) 및 시스템A(더존 3사)의 HR 데이터를 통합하여 7종의 Fact 테이블 구축
 * **대상:** 자격증, 학력, 상벌, 경력, 병역, 어학, 발령 데이터
 
----
-
 ### 2. 주요 성과 (Facts)
 
 ### ✅ 전사 통합 인사 식별 체계 완성
@@ -68,8 +65,6 @@
 ### ✅ 데이터 결손 및 로직 보정
 * **성과:** 시스템B에 없는 '최종학력 여부'를 **졸업일/학력코드 기반 랭킹 알고리즘**으로 자체 생성하여 데이터 정확도 확보.
 * **성과:** 시스템A의 불분명한 퇴직 사유를 코드 매핑을 통해 **자발/비자발 퇴직으로 명확히 구분**, 인사 통계 신뢰도 향상.
-
-
 
 ### ✅ 통합 히스토리 관리 환경 구축
 * **성과:** 정규 데이터뿐만 아니라 **수기 발령 이력**까지 통합 범위에 포함하여 누락 없는 커리어 히스토리 추적 환경 구현.
