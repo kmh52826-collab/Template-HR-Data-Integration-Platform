@@ -41,40 +41,42 @@
 
 ---
 ## 🏗️ Databricks Medallion Architecture
-데이터 신뢰성 확보를 위해 **Bronze(Raw) → Silver(Validated) → Gold(Enriched)** 단계로 데이터를 정제하는 레이어링 설계를 적용했습니다.
+### To ensure data reliability, we implemented a layered architecture that refines data through **Bronze (Raw) → Silver (Validated) → Gold (Enriched)** stages.
 
 <img width="1594" height="691" alt="image" src="https://github.com/user-attachments/assets/e7d8f702-4eec-4337-9232-270f544aa38a" />
 
 <br>
 <br>
 
-## 🛠 ETL Logic: `f_hr_scholar`
+---
 
-**`f_hr_scholar`** 테이블은 인사 분석의 핵심이 되는 자격증, 학력, 상벌, 어학, 경력, 발령 데이터를 담은 Fact Table입니다. <br>
-이 테이블은 복잡한 소스 데이터를 단일 노트북(`NB_Fct_To_Gld`)을 통해 정제하고 통합하는 과정을 거쳐 생성됩니다.
+## 🚀 Data Transformation Pipeline
 
-[Click here to view the documentation](src/NB_Fct_To_Gld.md)
+### 이 프로젝트의 핵심 ETL 로직중 하나인 `NB_Fct_To_Gld`를 소개하겠습니다.
 
-### 1. Unified Integration (단일 노트북 기반 통합 구조)
-파편화된 ETL 스크립트 대신 `NB_Fct_To_Gld`라는 중앙 집중식 노트북을 설계하여 다음과 같은 성과를 거두었습니다.
-* **데이터 일관성 확보:** 여러 레이어(Bronze, Silver)에 흩어진 인사 정보를 한 번에 동기화하여 데이터 불일치 문제를 해결했습니다.
-* **유지보수 효율성:** 단일 지점에서 변환 로직을 관리함으로써, 향후 스키마 변경이나 로직 수정 시 발생할 수 있는 리스크를 최소화했습니다.
+### 1. 개요
+* **핵심 작업:** 시스템B(화이트) 및 시스템A(더존 3사)의 HR 데이터를 통합하여 7종의 Fact 테이블 구축
+* **대상:** 자격증, 학력, 상벌, 경력, 병역, 어학, 발령 데이터
 
-### 2. Core Transformation Steps (주요 변환 로직)
-원천 데이터(Raw Data)를 분석용 데이터(Gold)로 전환하기 위해 다음의 4단계 로직을 적용했습니다.
+---
 
-| 단계 | 프로세스 | 상세 설명 |
-| :--- | :--- | :--- |
-| **Step 1** | **Source Aggregation** | `brz.white.phm_scholar`(원천 학력)와 `slv.dzn.hr_shocare_mst`(정제된 마스터) 데이터를 수집합니다. |
-| **Step 2** | **Multi-Way Join** | `gld.default.d_hr_school`(학교 마스터) 및 공통 코드 테이블과 결합하여 코드 형태의 데이터를 사람이 읽을 수 있는 명칭으로 치환합니다. |
-| **Step 3** | **Data Standardization** | 학위 수준(예: 학사, Bachelor, B.S.)이나 전공 명칭 등 일관성 없는 텍스트 데이터를 표준화된 포맷으로 정규화합니다. |
-| **Step 4** | **Integrity Check** | 유효하지 않은 사번을 가진 레코드를 필터링하고, 졸업일자 등 필수 필드의 결측치를 처리하여 데이터 무결성을 보장합니다. |
+### 2. 주요 성과 (Facts)
 
-### 3. Engineering Excellence (기술적 차별점)
-* **Performance Optimization:** Bronze 레이어의 legacy 데이터 타입을 Spark/SQL 환경에 최적화된 타입으로 변환하여 쿼리 성능을 높였습니다.
-* **Data Security & Privacy:** 기업 보안 정책 및 개인정보 보호를 위해 이메일, 사번 등 민감 정보에 마스킹(Masking) 및 익명화 로직을 적용했습니다.
+### ✅ 전사 통합 인사 식별 체계 완성
+* **성과:** 시스템별로 분산된 사번을 접두사(`a`, `q`, `f`) 기반의 **EMP_ID로 단일화**하여 전사 관점의 인원 추적이 가능해짐.
 
-> **Note:** 본 포트폴리오는 보안 준수를 위해 실제 기업의 스키마 명칭과 개인 식별 정보는 모두 가상화(Anonymized) 처리되었습니다.
+### ✅ 데이터 결손 및 로직 보정
+* **성과:** 시스템B에 없는 '최종학력 여부'를 **졸업일/학력코드 기반 랭킹 알고리즘**으로 자체 생성하여 데이터 정확도 확보.
+* **성과:** 시스템A의 불분명한 퇴직 사유를 코드 매핑을 통해 **자발/비자발 퇴직으로 명확히 구분**, 인사 통계 신뢰도 향상.
+
+
+
+### ✅ 통합 히스토리 관리 환경 구축
+* **성과:** 정규 데이터뿐만 아니라 **수기 발령 이력**까지 통합 범위에 포함하여 누락 없는 커리어 히스토리 추적 환경 구현.
+
+### ✅ 데이터 가용성 및 성능 최적화
+* **성과:** 분산된 텍스트 기반 데이터를 **Timestamp 및 Delta Lake 형식으로 표준화**하여 대시보드 및 분석 쿼리 속도 최적화.<br><br>
+🔗 **[View Detailed Transformation Logic (NB_Fct_To_Gld.md)](src/NB_Fct_To_Gld.md)**
 
 ---
 
