@@ -52,7 +52,7 @@
 
 ## 🚀 Data Transformation Pipeline
 
-### 이 프로젝트의 핵심 ETL 로직중 하나인 `NB_Fct_To_Gld`를 소개하겠습니다.
+### I engineered the **`NB_Fct_To_Gld`** module, a critical ETL logic designed to synthesize validated data into high-performance Gold-layer assets.
 
 ### 1. 개요
 * **핵심 작업:** 시스템B(화이트) 및 시스템A(더존 3사)의 HR 데이터를 통합하여 7종의 Fact 테이블 구축
