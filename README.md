@@ -53,7 +53,7 @@
 **`f_hr_scholar`** 테이블은 인사 분석의 핵심이 되는 자격증, 학력, 상벌, 어학, 경력, 발령 데이터를 담은 Fact Table입니다. <br>
 이 테이블은 복잡한 소스 데이터를 단일 노트북(`NB_Fct_To_Gld`)을 통해 정제하고 통합하는 과정을 거쳐 생성됩니다.
 
-[Click here to view the documentation](NB_Fct_To_Gld.md)
+[Click here to view the documentation](src/NB_Fct_To_Gld.md)
 
 ### 1. Unified Integration (단일 노트북 기반 통합 구조)
 파편화된 ETL 스크립트 대신 `NB_Fct_To_Gld`라는 중앙 집중식 노트북을 설계하여 다음과 같은 성과를 거두었습니다.
