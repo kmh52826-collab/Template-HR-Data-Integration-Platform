@@ -1061,22 +1061,3 @@ LOCATION 'abfss://gld@storage_account.dfs.core.windows.net/f_hr_appoint_history'
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
