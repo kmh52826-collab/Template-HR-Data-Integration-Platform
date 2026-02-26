@@ -1,4 +1,4 @@
-# 🛠 HR Fact Tables ETL Pipeline Detail
+# 🛠 Fact To Gold Notebook Detail
 --------------------------------
 #### 자격증 / 학력 / 상벌 / 어학 / 경력 / 발령
 
