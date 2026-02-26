@@ -1,4 +1,4 @@
-# HR 데이터 통합 플랫폼 (HR Data Integration Platform)
+# 🌐 HR Data Integration Platform
 ### Enterprise-Unified Analytics for Global Subsidiaries
 
 > **10여 개 계열사의 이기종 HR 데이터를 통합하고 표준화하기 위한 엔드투엔드(End-to-End) 데이터 엔지니어링 솔루션입니다.**
@@ -14,7 +14,7 @@
 **메달리온 아키텍처(Medallion Architecture)** 를 통해 고품질의 통합 데이터를 구축함으로써 **Power BI** 기반의 전사적 인사이트 시각화 체계를 구현하였습니다.
 
 ---
-## 🏗️ 전체 시스템 아키텍처
+## 🏗️ Overall System Architecture
 <img width="2559" height="174" alt="image" src="https://github.com/user-attachments/assets/3302ae1d-ea9d-41f5-82c3-b81828ddb2df" />
 <img width="2557" height="1436" alt="image" src="https://github.com/user-attachments/assets/e139007a-e937-48eb-9394-d13fa95a388d" />
 
@@ -49,7 +49,8 @@
 
 ---
 
-## 🚀 Data Transformation Pipeline
+## 🏗️ How the Gold Scholar Table is Built
+<img width="2000" height="1411" alt="image" src="https://github.com/user-attachments/assets/752ee8c3-bad4-40fe-9dbf-56f8a569fbbb" />
 
 ### I engineered the **`NB_Fct_To_Gld`** module, a critical ETL logic designed to synthesize validated data into high-performance Gold-layer assets.
 
