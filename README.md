@@ -75,7 +75,7 @@
 
 ---
 ## 🌟 Integrated HR Dashboard & Employee Lookup
-### Here are the two HR dashboards I built
+### Here Are the Two HR Dashboards I Built Using Power BI
 
 ---
 
