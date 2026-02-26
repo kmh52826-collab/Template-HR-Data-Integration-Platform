@@ -19,7 +19,6 @@
 <img width="2557" height="1436" alt="image" src="https://github.com/user-attachments/assets/e139007a-e937-48eb-9394-d13fa95a388d" />
 
 ---
-
 ## 🏗️ Azure Data Factory Pipeline
 <img width="2556" height="745" alt="image" src="https://github.com/user-attachments/assets/e070fd3e-ed81-49df-8362-7b3167d40fd0" />
 
@@ -48,17 +47,15 @@
 ### To ensure data reliability, we implemented a layered architecture that refines data through **Bronze (Raw) → Silver (Validated) → Gold (Enriched)** stages.
 
 ---
-
 ## 🏗️ How the Gold Scholar Table is Built
-<img width="2000" height="1411" alt="image" src="https://github.com/user-attachments/assets/752ee8c3-bad4-40fe-9dbf-56f8a569fbbb" />
+<img width="2004" height="1417" alt="image" src="https://github.com/user-attachments/assets/f5eb43b0-cc07-4be3-9299-b03658f80d42" />
 
-### I engineered the **`NB_Fct_To_Gld`** module, a critical ETL logic designed to synthesize validated data into high-performance Gold-layer assets.
-
+### I engineered the **`Fct_To_Gld`** module, a critical ETL logic designed to synthesize validated data into high-performance Gold-layer assets. Beyond scholar records, it is architected to process a broad range of HR datasets as defined in the **`Scope`** below.
 ---
 
 ### 1. 개요 (Overview)
 * **Core Objective:** 시스템B(White) 및 시스템A(더존 3사)로 이원화된 소스 데이터를 통합하여 분석 최적화형 7종 **HR Fact Tables** 구축
-* **Scope:** 자격증, 학력, 상벌, 경력, 병역, 어학, 발령 데이터 (f_hr_*)
+* **Scope: 자격증, 학력, 상벌, 경력, 병역, 어학, 발령 데이터** (f_hr_*)
 
 ### 2. 주요 성과 (Key Achievements)
 
