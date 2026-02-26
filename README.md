@@ -74,7 +74,7 @@
 
 ---
 
-🔗 **[View Detailed Transformation Logic (NB_Fct_To_Gld.md)](src/NB_Fct_To_Gld.md)**
+## 🔗 **[View Detailed Transformation Logic (NB_Fct_To_Gld.md)](src/NB_Fct_To_Gld.md)**
 
 ---
 
