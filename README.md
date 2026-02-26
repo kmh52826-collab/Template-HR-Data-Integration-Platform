@@ -51,47 +51,31 @@
 <img width="2004" height="1417" alt="image" src="https://github.com/user-attachments/assets/f5eb43b0-cc07-4be3-9299-b03658f80d42" />
 
 ### I engineered the **`Fct_To_Gld`** module, a critical ETL logic designed to synthesize validated data into high-performance Gold-layer assets. Beyond scholar records, it is architected to process a broad range of HR datasets as defined in the **`Scope`** below.
----
 
-### 1. 개요 (Overview)
+### 개요 (Overview)
 * **Core Objective:** 시스템B(White) 및 시스템A(더존 3사)로 이원화된 소스 데이터를 통합하여 분석 최적화형 7종 **HR Fact Tables** 구축
 * **Scope:** 자격증 / 학력 / 상벌 / 경력 / 병역 / 어학 / 발령 데이터 (f_hr_*)
-
-### 2. 주요 성과 (Key Achievements)
-
-### ✅ 전사 통합 인사 식별 체계(Unified Employee ID) 수립
-* 시스템별로 상이한 사번 체계에 접두사(`a`, `q`, `f`)를 부여하는 식별자 단일화 로직을 설계하여, **전사 관점의 전 생애주기 인원 추적(People Tracking)** 기반 마련.
-
-### ✅ 비즈니스 알고리즘을 통한 데이터 결손 보정
-* **학력 데이터:** 시스템B의 '최종학력 여부' 결손 문제를 해결하기 위해 **졸업일 및 학력코드를 활용한 다차원 랭킹 알고리즘**을 구현하여 정합성 확보.
-* **퇴직 데이터:** 시스템A의 불분명한 퇴직 사유를 표준화된 코드셋으로 매핑하여 **자발/비자발 퇴직 여부를 명확히 구조화**, 인사이트 통계 신뢰도 극대화.
-
-### ✅ 전수 이력 통합(Full-History) 관리 환경 구현
-* 정규 발령 데이터와 누락되기 쉬운 **과거 수기 발령 이력**까지 단일 파이프라인으로 통합하여 누락 없는 커리어 히스토리 관리 및 가시성 확보.
-
-### ✅ 데이터 가용성 및 쿼리 성능 최적화
-* 분산된 텍스트 기반 데이터를 **Delta Lake 포맷 및 Timestamp 형식으로 표준화**하고, 고성능 인덱싱 및 분석용 쿼리 속도 최적화(Performance Tuning) 달성.
-
----
-
+  
 ## 🔗 **[View Detailed Transformation Logic (NB_Fct_To_Gld.md)](src/NB_Fct_To_Gld.md)**
 
 ---
 
-## 🌟 주요 기술적 성과
+## 🏗️ How I Integrated Code Across Different Systems
+<img width="1273" height="869" alt="image" src="https://github.com/user-attachments/assets/7833de2e-086c-4181-bc0c-879901f7e304" />
 
-### 1. 이기종 데이터 통합 및 표준화 (Heterogeneous Data Integration)
-* **문제점**: 10개 이상의 계열사가 서로 다른 ERP(더존, 자체 시스템 등)를 사용하여 사원/부서 코드가 불일치함. 이로 인해 그룹 전체 인력 현황을 하나의 기준으로 집계하거나 분석하는 것이 불가능했음.
-* **해결책**: 
-    * **MDM 기반 코드 표준화**: BI-Matrix 인터페이스를 개발하여 각 계열사의 로컬 코드를 그룹 표준 코드에 1:1 매핑하는 마스터 데이터 관리(MDM) 로직을 구현함으로써 데이터 일관성 확보.
-    * **데이터 저장 구조 최적화**: Azure Databricks 환경에서 메달리온 아키텍처(Bronze, Silver, Gold 레이어)를 도입하여, 정제되지 않은 Raw 데이터부터 분석용 표준 데이터까지 단계별 적재 및 가공 프로세스 구축.
 
-### 2. 비용 효율적인 마스터 데이터 관리(MDM) 시스템 구축
-* **문제점**: 전문 MDM 솔루션 도입을 위한 고가의 라이선스 예산 확보 및 복잡한 구축 과정의 어려움.
-* **해결책**: 이미 사내에 도입되어 있는 **BI-Matrix**를 활용하여 현업 담당자가 직접 데이터를 수정하고 매핑할 수 있는 CRUD 인터페이스를 자체 설계. 이를 통해 고가의 외부 솔루션 도입 비용을 100% 절감하고 운영 편의성 증대.
+### ✅ Heterogeneous Data Integration
+* **문제점 (Problem)**
+    * **데이터 파편화**: 서로 다른 ERP를 사용하는 10여 개 계열사의 마스터 코드와 데이터 구조가 불일치하여, 통일된 표준으로 그룹 전체의 인력 현황을 집계하거나 분석하는 것이 불가능했음.
+    * **비용 장벽**: 마스터 데이터 관리(MDM) 시스템 외주 구축은 높은 비용으로 인해 재무적으로 불가능했으므로, 예산 내에서 기술적 목표를 달성하기 위한 자체 구축 솔루션이 필요했음.
+* **해결책 (Solution)**: 사내에 이미 도입되어 있는 **BI-Matrix 플랫폼을 활용**하여 추가 비용 없이 자체 MDM 로직을 개발했으며, 각 계열사의 로컬 코드를 그룹 표준 코드에 1:1로 매핑함으로써 데이터 일관성을 확보함.
 
-### 3. 고도화된 HR 분석 대시보드 제공
-* **성과**: **Power BI**를 통해 그룹 전체의 이직률, 노동 생산성, 인력 현황 등을 실시간으로 시각화하여 데이터 기반의 경영 의사결정(Data-driven Decision Making) 지원.
+### Technical Note
+> **BI-Matrix**: A specialized Low-code Business Intelligence (BI) platform used to rapidly design data interfaces and implement complex business logic.
+
+---
+## 🌟 Integrated HR Dashboard & Employee Lookup
+### Here are the two HR dashboards I built
 
 ---
 
