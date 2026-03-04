@@ -57,7 +57,7 @@
 * **Scope:** 자격증 / 학력 / 상벌 / 경력 / 병역 / 어학 / 발령 데이터 (f_hr_*)
 
 
-### 🔗 **[View Detailed Transformation Logic (NB_Fct_To_Gld.ipynb)](ETL/NB_Fct_To_Gld.md)**
+### 🔗 **[View Detailed Transformation Logic (NB_Fct_To_Gld.ipynb)](ETL/NB_Fct_To_Gld.ipynb)**
 ### 🔗 **[View Detailed Table Definition (Table_Definition.md)](ETL/NB_Fct_To_Gld.md)**
 
 ---
