@@ -55,8 +55,9 @@
 ### 개요 (Overview)
 * **Core Objective:** 시스템B(White) 및 시스템A(더존 3사)로 이원화된 소스 데이터를 통합하여 분석 최적화형 7종 **HR Fact Tables** 구축
 * **Scope:** 자격증 / 학력 / 상벌 / 경력 / 병역 / 어학 / 발령 데이터 (f_hr_*)
-  
-## 🔗 **[View Detailed Transformation Logic (NB_Fct_To_Gld.md)](ETL/NB_Fct_To_Gld.md)**
+
+## 🔗 **[View Detailed Transformation Logic (NB_Fct_To_Gld.ipynb)](ETL/NB_Fct_To_Gld.md)**
+## 🔗 **[View Detailed Transformation Logic (Table_Definition.md)](ETL/NB_Fct_To_Gld.md)**
 
 ---
 
