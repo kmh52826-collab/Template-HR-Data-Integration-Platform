@@ -22,7 +22,7 @@
 ## 🏗️ Azure Data Factory Pipeline
 <img width="2556" height="745" alt="image" src="https://github.com/user-attachments/assets/e070fd3e-ed81-49df-8362-7b3167d40fd0" />
 
-### I engineered this **Metadata-Driven Dynamic Pipeline** to ensure high scalability and automated observability.
+> ### I engineered this **Metadata-Driven Dynamic Pipeline** to ensure high scalability and automated observability.
 
 ### Step 1. Logging
 * **Process:** 파이프라인 시작 시 `SP_INS_RAW_PIP_INFO` 프로시저를 호출하여 고유 Execution ID를 생성하고 세션 컨텍스트를 기록합니다.
