@@ -48,7 +48,7 @@
 
 ---
 ## 🏗️ How the Gold Table is Built
-<img width="2004" height="1417" alt="image" src="https://github.com/user-attachments/assets/f5eb43b0-cc07-4be3-9299-b03658f80d42" />
+<img width="1907" height="1375" alt="image" src="https://github.com/user-attachments/assets/99fd3a36-cf82-4487-8e65-55638f3d321a" />
 
 ### I engineered the **`Fct_To_Gld`** module, a critical ETL logic designed to synthesize validated data into high-performance Gold-layer assets. Beyond scholar records, it is architected to process a broad range of HR datasets as defined in the **`Scope`** below.
 
