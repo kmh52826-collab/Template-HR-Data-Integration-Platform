@@ -76,8 +76,10 @@
 > **BI-Matrix**: A specialized Low-code Business Intelligence (BI) platform used to rapidly design data interfaces and implement complex business logic.
 
 ---
-## 🌟 Integrated HR Dashboard & Employee Lookup
-### Here Are the Two HR Dashboards I Built Using Power BI
+## 🌟 Employee Turnover Analysis Dashboard
+> ### This is one of the analytical dashboards I developed during the HR project
+<img width="2545" height="1191" alt="image" src="https://github.com/user-attachments/assets/2523b92f-d81b-46ec-84ec-e700d0c14d51" />
+<img width="2262" height="1431" alt="image" src="https://github.com/user-attachments/assets/78cdb405-8282-4a5d-a09d-54d86a2acc8e" />
 
 ---
 
