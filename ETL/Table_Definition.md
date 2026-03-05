@@ -1,4 +1,3 @@
-%md
 # 📊 HR Fact Tables - 테이블 구조
 
 ## 개요
