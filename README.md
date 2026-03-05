@@ -57,8 +57,8 @@
 * **Scope:** 자격증 / 학력 / 상벌 / 경력 / 병역 / 어학 / 발령 데이터 (f_hr_*)
 
 
-### 🔗 **[View Detailed Transformation Logic (01.NB_Fct_To_Gld.ipynb)](ETL/01.NB_Fct_To_Gld.ipynb)**
-### 🔗 **[View Detailed Table Definition (02.Table_Definition.md)](ETL/02.Table_Definition.md)**
+### 🔗 **[View Detailed Transformation Logic (01.NB_Fct_To_Gld.ipynb)](ETL/pipeline/01.NB_Fct_To_Gld.ipynb)**
+### 🔗 **[View Detailed Table Definition (02.Table_Definition.md)](ETL/pipeline/02.Table_Definition.md)**
 
 ---
 
