@@ -58,7 +58,7 @@
 
 
 ### 🔗 **[View Detailed Transformation Logic (01.NB_Fct_To_Gld.ipynb)](ETL/01.NB_Fct_To_Gld.ipynb)**
-### 🔗 **[View Detailed Table Definition (01.Table_Definition.md)](ETL/01.Table_Definition.md)**
+### 🔗 **[View Detailed Table Definition (02.Table_Definition.md)](ETL/02.Table_Definition.md)**
 
 ---
 
