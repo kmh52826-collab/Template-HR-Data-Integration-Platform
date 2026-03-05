@@ -1,1 +1,267 @@
+CREATE PROC [META].[SP_INS_RAW_PIP_INFO]  
+     @PIP_NM [NVARCHAR](250)  
+    ,@ORDER_KEY [nvarchar](100) 
+	,@SRC_SYSTEM_NM [nvarchar](100)
+	,@SRC_LAKECONTAINER_NM [nvarchar](100)
+	,@SRC_LAKEPATH_NM [nvarchar](200)
+	,@SRC_LAKEFILE_NM [nvarchar](100)
+	,@SRC_DB_NM [nvarchar](100)
+	,@SRC_SCHEMA_NM [nvarchar](100)
+	,@SRC_TABLE_NM [nvarchar](100)
+	,@TRGT_SYSTEM_NM [nvarchar](100)
+	,@TRGT_LAKECONTAINER_NM [nvarchar](100)
+	,@TRGT_LAKEPATH_NM [nvarchar](200)
+	,@TRGT_LAKEFILE_NM [nvarchar](100)
+	,@TRGT_DB_NM [nvarchar](100)
+	,@TRGT_SCHEMA_NM [nvarchar](100)
+	,@TRGT_TABLE_NM [nvarchar](100)
+    ,@PIP_EXEC_DT [nvarchar](100)  
+    ,@PIP_EXEC_HH [nvarchar](100)   
+	,@PIP_EXEC_MM [nvarchar](100)  
+    ,@PARAM_DT [nvarchar](200)   
+    ,@PARAM_HH [nvarchar](200)   
+    ,@SCHEDULE_TP [nvarchar](100)   
+    ,@NOTEBOOK_NM [nvarchar](200)  
+    ,@RUN_ID [NVARCHAR](250)  
+    ,@RUN_STATUS [NVARCHAR](50)  
+    ,@START_TIME [DATETIME]  
+    ,@END_TIME [DATETIME]  
+	,@ERROR_CD [nvarchar](100)
+	,@ERROR_MSG [nvarchar](max)
+	,@INPUT_TP [VARCHAR](100)
+	,@PARTITION_KEY [nvarchar](1000)
+	,@SRC_LAKE_NM  [nvarchar](200)
+	,@TRGT_LAKE_NM  [nvarchar](200)	
+    ,@SRC_RECORD_CNT BIGINT
+	,@TRGT_RECORD_CNT BIGINT
+AS   
+BEGIN  
+    DECLARE @SUM_DURATION DECIMAL(15,2);
+	DECLARE @CNT_DURATION INT;
+	DECLARE @AVG_CNT INT = 5;									-- 실행시간 Outlier 측정기준 평균 횟수
+	DECLARE @OUTLIER_PER INT = 10;								-- 실행시간 Outlier 기준(%)
+	DECLARE @OUTLIER_TXT NVARCHAR(200) = 'Outlier Duration';	-- 실행시간 Outlier 텍스트
 
+    WITH LIST_A AS (
+		SELECT A.*
+			 , ROW_NUMBER() OVER (PARTITION BY A.[ORDER_KEY] ORDER BY A.[START_TIME] DESC) AS ROWNUM
+		  FROM [META].[LOG_INV] A
+		 WHERE [RUN_ID] = @RUN_ID  
+           AND [ORDER_KEY] = @ORDER_KEY
+           AND [PARAM_DT] = @PARAM_DT  
+           AND [PARAM_HH] = @PARAM_HH
+	)
+	SELECT @SUM_DURATION = SUM(DURATION)
+		 , @CNT_DURATION = COUNT(*)
+	  FROM LIST_A
+	 WHERE ROWNUM<=@AVG_CNT+1 AND ROWNUM<>1;
+     
+	--PIP, ORDER LOG START
+    IF @END_TIME IS NULL  
+    BEGIN  
+        INSERT INTO [META].[LOG_INV] (  
+             [PIP_NM]  
+            ,[ORDER_KEY]  
+			,[SRC_SYSTEM_NM]
+			,[SRC_LAKECONTAINER_NM]
+			,[SRC_LAKEPATH_NM]
+			,[SRC_LAKEFILE_NM]
+			,[SRC_DB_NM]
+			,[SRC_SCHEMA_NM]
+			,[SRC_TABLE_NM]
+			,[TRGT_SYSTEM_NM]   
+			,[TRGT_LAKECONTAINER_NM]
+			,[TRGT_LAKEPATH_NM]
+			,[TRGT_LAKEFILE_NM]
+			,[TRGT_DB_NM]
+			,[TRGT_SCHEMA_NM]
+			,[TRGT_TABLE_NM]
+            ,[PIP_EXEC_DT]   
+            ,[PIP_EXEC_HH]  
+			,[PIP_EXEC_MM]  
+            ,[PARAM_DT]   
+            ,[PARAM_HH]   
+            ,[SCHEDULE_TP]   
+            ,[NOTEBOOK_NM]        
+            ,[RUN_ID]  
+            ,[RUN_STATUS]  
+            ,[START_TIME]  
+            ,[END_TIME] 
+			,[ERROR_CD]
+			,[ERROR_MSG]
+			,[PARTITION_KEY]
+			,[SRC_LAKE_NM]
+ 			,[TRGT_LAKE_NM]
+			,[SRC_RECORD_CNT]
+			,[TRGT_RECORD_CNT]
+			,[DURATION]
+			,[AVG_DURATION]
+			,[OUTLIER]
+			,[INPUT_TP]
+        )                                     
+        VALUES (  
+             @PIP_NM  
+            ,@ORDER_KEY   
+			,@SRC_SYSTEM_NM
+			,@SRC_LAKECONTAINER_NM
+			,@SRC_LAKEPATH_NM
+			,@SRC_LAKEFILE_NM
+			,@SRC_DB_NM
+			,@SRC_SCHEMA_NM
+			,@SRC_TABLE_NM
+			,@TRGT_SYSTEM_NM
+			,@TRGT_LAKECONTAINER_NM
+			,@TRGT_LAKEPATH_NM
+			,@TRGT_LAKEFILE_NM
+			,@TRGT_DB_NM
+			,@TRGT_SCHEMA_NM
+			,@TRGT_TABLE_NM
+            ,@PIP_EXEC_DT   
+            ,@PIP_EXEC_HH   
+			,@PIP_EXEC_MM
+            ,@PARAM_DT   
+            ,@PARAM_HH   
+            ,@SCHEDULE_TP   
+            ,@NOTEBOOK_NM        
+            ,@RUN_ID  
+            ,@RUN_STATUS  
+            ,@START_TIME  
+            ,@END_TIME 
+			,@ERROR_CD
+			,@ERROR_MSG
+			,@PARTITION_KEY
+			,@SRC_LAKE_NM 
+			,@TRGT_LAKE_NM
+			,@SRC_RECORD_CNT
+			,NULL				--TRGT_RECORD_CNT
+			,NULL 				--DURATION
+			,NULL				--AVG_DURATION
+			,NULL				--OUTLIER
+			,@INPUT_TP
+        )  
+    END  
+
+	--ORDER LOG END
+	ELSE IF @ORDER_KEY IS NOT NULL AND @END_TIME IS NOT NULL  
+    BEGIN  
+        UPDATE [META].[LOG_INV]  
+           SET [PIP_NM] = @PIP_NM  
+			 , [SRC_SYSTEM_NM] = @SRC_SYSTEM_NM
+			 , [SRC_LAKECONTAINER_NM] = @SRC_LAKECONTAINER_NM
+			 , [SRC_LAKEPATH_NM] = @SRC_LAKEPATH_NM
+			 , [SRC_LAKEFILE_NM] = @SRC_LAKEFILE_NM
+			 , [SRC_DB_NM] = @SRC_DB_NM
+			 , [SRC_SCHEMA_NM] = @SRC_SCHEMA_NM
+			 , [SRC_TABLE_NM] = @SRC_TABLE_NM
+			 , [TRGT_SYSTEM_NM] = @TRGT_SYSTEM_NM
+			 , [TRGT_LAKECONTAINER_NM] = @TRGT_LAKECONTAINER_NM
+			 , [TRGT_LAKEPATH_NM] = @TRGT_LAKEPATH_NM
+			 , [TRGT_LAKEFILE_NM] = @TRGT_LAKEFILE_NM
+			 , [TRGT_DB_NM] = @TRGT_DB_NM
+			 , [TRGT_SCHEMA_NM] = @TRGT_SCHEMA_NM
+			 , [TRGT_TABLE_NM] = @TRGT_TABLE_NM
+             , [PIP_EXEC_DT] = @PIP_EXEC_DT   
+             , [PIP_EXEC_HH] = @PIP_EXEC_HH   
+			 , [PIP_EXEC_MM] = @PIP_EXEC_MM
+             , [SCHEDULE_TP] = @SCHEDULE_TP   
+             , [NOTEBOOK_NM] = @NOTEBOOK_NM  
+             , [RUN_STATUS] = @RUN_STATUS  
+             , [END_TIME] = @END_TIME  
+			 , [ERROR_CD] = @ERROR_CD
+			 , [ERROR_MSG] = @ERROR_MSG
+			 , [PARTITION_KEY] = @PARTITION_KEY
+			 , [SRC_LAKE_NM] = @SRC_LAKE_NM
+			 , [TRGT_LAKE_NM] = @TRGT_LAKE_NM
+			 , [TRGT_RECORD_CNT] = @TRGT_RECORD_CNT
+			 , [DURATION] = DATEDIFF(SECOND, [START_TIME], @END_TIME)
+			 , [AVG_DURATION] = CASE WHEN @CNT_DURATION<@AVG_CNT 
+				 THEN NULL
+				 ELSE @SUM_DURATION/@CNT_DURATION END
+			 , [OUTLIER] = CASE WHEN @CNT_DURATION<@AVG_CNT 
+					OR ABS(
+						CASE WHEN @CNT_DURATION<@AVG_CNT 
+							THEN NULL
+							ELSE @SUM_DURATION/@CNT_DURATION END
+						-(DATEDIFF(SECOND, [START_TIME], @END_TIME))
+					)<=(@OUTLIER_PER/100.0)*(DATEDIFF(SECOND, [START_TIME], @END_TIME))
+				 THEN NULL
+				 ELSE @OUTLIER_TXT END
+			 , [INPUT_TP] = @INPUT_TP
+         WHERE [RUN_ID] = @RUN_ID  
+           AND [ORDER_KEY] = @ORDER_KEY
+           AND [PARAM_DT] = @PARAM_DT  
+           AND [PARAM_HH] = @PARAM_HH
+
+		--ORDER_STATUS UPDATE
+		UPDATE [META].[ORDER_INV]
+		   SET [ORDER_STATUS] = @RUN_STATUS
+			 , [LAST_UPDATE_DT] = GETDATE() AT TIME ZONE 'UTC' AT TIME ZONE 'Korea Standard Time'
+		 WHERE 1=1
+		   AND [ORDER_KEY] = @ORDER_KEY
+		   AND [PARAM_DT] = @PARAM_DT
+		   AND [PARAM_HH] = @PARAM_HH
+		   AND [PIP_EXEC_DT] = @PIP_EXEC_DT
+		   AND [PIP_EXEC_HH] = @PIP_EXEC_HH
+		   AND [PIP_EXEC_MM] = @PIP_EXEC_MM
+	END
+
+	--PIP LOG END
+    ELSE IF @ORDER_KEY IS NULL AND @END_TIME IS NOT NULL  
+    BEGIN  
+        UPDATE [META].[LOG_INV]  
+           SET [PIP_NM] = @PIP_NM  
+			 , [SRC_SYSTEM_NM] = @SRC_SYSTEM_NM
+			 , [SRC_LAKECONTAINER_NM] = @SRC_LAKECONTAINER_NM
+			 , [SRC_LAKEPATH_NM] = @SRC_LAKEPATH_NM
+			 , [SRC_LAKEFILE_NM] = @SRC_LAKEFILE_NM
+			 , [SRC_DB_NM] = @SRC_DB_NM
+			 , [SRC_SCHEMA_NM] = @SRC_SCHEMA_NM
+			 , [SRC_TABLE_NM] = @SRC_TABLE_NM
+			 , [TRGT_SYSTEM_NM] = @TRGT_SYSTEM_NM
+			 , [TRGT_LAKECONTAINER_NM] = @TRGT_LAKECONTAINER_NM
+			 , [TRGT_LAKEPATH_NM] = @TRGT_LAKEPATH_NM
+			 , [TRGT_LAKEFILE_NM] = @TRGT_LAKEFILE_NM
+			 , [TRGT_DB_NM] = @TRGT_DB_NM
+			 , [TRGT_SCHEMA_NM] = @TRGT_SCHEMA_NM
+			 , [TRGT_TABLE_NM] = @TRGT_TABLE_NM
+             , [PIP_EXEC_DT] = @PIP_EXEC_DT   
+             , [PIP_EXEC_HH] = @PIP_EXEC_HH   
+			 , [PIP_EXEC_MM] = @PIP_EXEC_MM
+             , [SCHEDULE_TP] = @SCHEDULE_TP   
+             , [NOTEBOOK_NM] = @NOTEBOOK_NM  
+             , [RUN_STATUS] = @RUN_STATUS  
+             , [END_TIME] = @END_TIME  
+			 , [ERROR_CD] = @ERROR_CD
+			 , [ERROR_MSG] = @ERROR_MSG
+			 , [PARTITION_KEY] = @PARTITION_KEY
+			 , [SRC_LAKE_NM] = @SRC_LAKE_NM
+			 , [TRGT_LAKE_NM] = @TRGT_LAKE_NM
+             , [SRC_RECORD_CNT] = NULL
+			 , [TRGT_RECORD_CNT] = NULL
+			 , [DURATION] = DATEDIFF(SECOND, [START_TIME], @END_TIME)
+			 , [AVG_DURATION] = CASE WHEN @CNT_DURATION<@AVG_CNT 
+				 THEN NULL
+				 ELSE @SUM_DURATION/@CNT_DURATION END
+			 , [OUTLIER] = CASE WHEN @CNT_DURATION<@AVG_CNT 
+					OR ABS(
+						CASE WHEN @CNT_DURATION<@AVG_CNT 
+							THEN NULL
+							ELSE @SUM_DURATION/@CNT_DURATION END
+						-(DATEDIFF(SECOND, [START_TIME], @END_TIME))
+					)<=(@OUTLIER_PER/100.0)*(DATEDIFF(SECOND, [START_TIME], @END_TIME))
+				 THEN NULL
+				 ELSE @OUTLIER_TXT END
+			 , [INPUT_TP] = @INPUT_TP
+         WHERE [RUN_ID] = @RUN_ID  
+           AND [ORDER_KEY] IS NULL
+     END  
+     
+	END
+
+	-- DELETE ROWS THAT PASS 14 DAYS
+	BEGIN
+	
+		DELETE [META].[LOG_INV]
+		 WHERE [START_TIME] <= TRY_CONVERT(DATE, DATEADD(DAY, -14, GETDATE()) AT TIME ZONE 'UTC' AT TIME ZONE 'Korea Standard Time')
+	 
+END	
