@@ -40,7 +40,7 @@
 * **Process:** 모든 병렬 작업의 결과를 종합하여 `SP_INS_RAW_PIP_INFO`를 통해 최종 성공/실패 여부를 판별하고 시스템 상태를 업데이트합니다.
 * **Engineering Rationale:** 트랜잭션의 **원자성** (Atomicity) 을 보장하기 위한 설계입니다. 모든 하위 작업이 검증된 경우에만 최종 상태를 동기화하여 하위 분석 계층에 데이터 무결성을 제공합니다.
 
-### 🔗 **[View Detailed Table Definition (SP_INS_RAW_PIP_INFO.md)](ETL/pipeline/SP_INS_RAW_PIP_INFO.md)**
+### 🔗 **[View Detailed Table Definition (SP_INS_RAW_PIP_INFO.md)](ETL/sql-procedures/SP_INS_RAW_PIP_INFO.md)**
 ---
 ## 🏗️ Databricks Medallion Architecture
 <img width="1594" height="691" alt="image" src="https://github.com/user-attachments/assets/e7d8f702-4eec-4337-9232-270f544aa38a" />
