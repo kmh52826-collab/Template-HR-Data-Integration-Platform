@@ -73,6 +73,8 @@
     * **비용 장벽**: 마스터 데이터 관리(MDM) 시스템 외주 구축은 높은 비용으로 인해 재무적으로 불가능했으므로, 예산 내에서 기술적 목표를 달성하기 위한 자체 구축 솔루션이 필요했음.
 * **해결책 (Solution)**: 사내에 이미 도입되어 있는 **BI-Matrix 플랫폼을 활용**하여 추가 비용 없이 자체 MDM 로직을 개발했으며, 각 계열사의 로컬 코드를 그룹 표준 코드에 1:1로 매핑함으로써 데이터 일관성을 확보함.
 
+### 🔗 **[View Detailed MDM (01.MDM_Overview.md)](MDM/01.MDM_Overview.md)**
+
 ### Technical Note
 > **BI-Matrix**: A specialized Low-code Business Intelligence (BI) platform used to rapidly design data interfaces and implement complex business logic.
 
