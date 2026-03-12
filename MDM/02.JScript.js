@@ -92,12 +92,12 @@ var OnButtonClick = function(sender, args) {
  * - 메인 그리드의 설정값(VALUE1~10)에 따라 하위 그리드의 헤더 명칭을 동적으로 변경합니다.
  *****************************************/
 var OnCellClick = function(sender, args) {
-    // '상세코드' 컬럼을 클릭했을 때만 하위 상세 정보를 연동합니다.
-    if (args.Field.Caption == "상세코드") {
+    // 'DetailCode' 컬럼을 클릭했을 때만 하위 상세 정보를 연동합니다.
+    if (args.Field.Caption == "DetailCode") {
         if (args.Id == "mainGrid") {
             
-            // 클릭된 행의 상세코드 값을 하위 그리드 조회 파라미터에 할당
-            subCodeParam.Text = args.Row.GetCell("상세코드").Value;
+            // 클릭된 행의 DetailCode 값을 하위 그리드 조회 파라미터에 할당
+            subCodeParam.Text = args.Row.GetCell("DetailCode").Value;
             Matrix.doRefresh("detailGrid"); // 파라미터 기반으로 하위 그리드 리프레시
 
             /**
