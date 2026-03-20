@@ -1,4 +1,4 @@
-# 🌐 HR Data Integration Platform (지금은 나만 보기 중)
+# 🌐 HR Data Integration Platform
 ### Enterprise-Unified Analytics for Global Subsidiaries
 
 > **10여 개 계열사의 이기종 HR 데이터를 통합하고 표준화하기 위한 엔드투엔드(End-to-End) 데이터 엔지니어링 솔루션입니다.**
