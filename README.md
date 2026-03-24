@@ -88,9 +88,8 @@
 
 ## 📂 프로젝트 구조 (Project Structure)
 ```text
-├── src/
-│   ├── etl/          # 데이터 변환 및 가공을 위한 PySpark 스크립트
-│   └── mdm/          # 마스터 데이터(MDM) 매핑 및 검증 로직
-├── sql/
-│   └── schemas/      # 표준화된 HR 테이블 설계를 위한 DDL 및 Query
-└── docs/             # 고해상도 아키텍처 설계도 및 프로젝트 상세 문서
+├── ETL/
+│   ├── pipeline/          # 데이터 변환 및 가공을 위한 PySpark 스크립트
+│   └── sql-procedure/     # 데이터 파이프라인 실행 이력 기록 및 상태 업데이트를 위한 프로시저 
+├── MDM/      # 마스터 데이터(MDM) 매핑 및 검증 로직
+└── README.md         
