@@ -91,7 +91,7 @@
 ├── ETL/
 │   ├── pipeline/          # 데이터 변환 및 가공을 위한 PySpark 스크립트 (.ipynb)
 │   │   └── 01.NB_Fct_To_Gld.ipynb
-│   │   └── 02.Table_Defintion.md
+│   │   └── 02.Table_Definition.md
 │   └── sql-procedure/     # 파이프라인 실행 이력 기록 및 상태 업데이트 프로시저
 │       └── SP_INS_RAW_PIP_INFO.sql
 ├── MDM/                   # 마스터 데이터(MDM) 매핑 및 검증 로직
