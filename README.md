@@ -88,8 +88,6 @@
 
 ## 📂 프로젝트 구조 (Project Structure)
 ```text
-📂 **프로젝트 구조 (Project Structure)**
-
 ├── ETL/
 │   ├── pipeline/          # 데이터 변환 및 가공을 위한 PySpark 스크립트 (.ipynb)
 │   │   └── 01.NB_Fct_To_Gld.ipynb
