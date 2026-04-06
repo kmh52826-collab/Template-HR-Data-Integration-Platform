@@ -44,7 +44,7 @@
 
 ### Step 1. Contextual Observability (Logging)
 * **Process:** 파이프라인 시작 시 `SP_INS_RAW_PIP_INFO` 프로시저를 호출하여 고유 Execution ID를 생성하고 세션 컨텍스트를 기록합니다.
-* **Engineering Rationale:** 대규모 분산 환경에서 프로세스의 **상태 추적(State Tracking)**과 **감사 추적(Audit Trail)**을 자동화하여 시스템 전체의 **관측성(Observability)**을 확보했습니다. 이는 복잡한 파이프라인 내의 병목 지점을 식별하고 디버깅 효율성을 극대화하기 위한 설계입니다.
+* **Engineering Rationale:** 대규모 분산 환경에서 프로세스의 **상태 추적(State Tracking)** 과 **감사 추적(Audit Trail)** 을 자동화하여 시스템 전체의 **관측성(Observability)** 을 확보했습니다. 이는 복잡한 파이프라인 내의 병목 지점을 식별하고 디버깅 효율성을 극대화하기 위한 설계입니다.
 
 ### Step 2. Abstracted Orchestration (Dynamic)
 * **Process:** `Get_Order_List` (Lookup) 단계를 통해 런타임 시점에 처리해야 할 소스 리스트와 메타데이터를 동적으로 쿼리합니다.
