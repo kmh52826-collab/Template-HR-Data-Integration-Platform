@@ -48,7 +48,7 @@
 
 ### Step 2. Abstracted Orchestration (Dynamic)
 * **Process:** `Get_Order_List` (Lookup) 단계를 통해 런타임 시점에 처리해야 할 소스 리스트와 메타데이터를 동적으로 쿼리합니다.
-* **Engineering Rationale:** 비즈니스 로직과 데이터 소스를 완전히 분리하는 **디커플링(Decoupling)** 설계를 적용했습니다. 이를 통해 파이프라인 코드의 재배포 없이 데이터 소스를 확장할 수 있는 구조를 구현하여, 기업의 가변적인 데이터 요구사항에 즉각 대응할 수 있는 **유연성(Flexibility)**을 확보했습니다.
+* **Engineering Rationale:** 비즈니스 로직과 데이터 소스를 완전히 분리하는 **디커플링(Decoupling)** 설계를 적용했습니다. 이를 통해 파이프라인 코드의 재배포 없이 데이터 소스를 확장할 수 있는 구조를 구현하여, 기업의 가변적인 데이터 요구사항에 즉각 대응할 수 있는 **유연성(Flexibility)** 을 확보했습니다.
 
 ### Step 3. Elastic Throughput & Resilience (Scale)
 * **Process:** **ForEach 루프**를 활용하여 Apache Spark 기반의 Databricks 노트북을 병렬로 트리거하며, 각 태스크는 **지능형 재시도(Retry)** 로직을 포함합니다.
