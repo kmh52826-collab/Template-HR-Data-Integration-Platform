@@ -91,7 +91,7 @@
 * **Architecture:** Databricks Medallion Architecture의 **Gold Layer**에 위치하며, Delta Lake 포맷으로 Azure ADLS Gen2에 저장됩니다.
 * **Key Value:** 전사 통합 사원 식별자(`EMP_ID`)를 기반으로 파편화된 인사 정보를 단일 뷰(Single View)로 제공하여 분석 효율성을 극대화합니다.
 
-### 🎯 프로젝트 범위 (Scope)
+### 🎯 범위 (Scope)
 인사 행정의 핵심인 7대 영역을 선정하여, 이력 추적 및 분석이 용이한 팩트 테이블을 설계하고 구현했습니다.
 
 | 영역 (Category) | 테이블명 (Table Name) | 주요 관리 항목 (Key Attributes) |
