@@ -1,4 +1,5 @@
-/******************************************************************************** * 업무명    : 시스템 공통 제어 (System Control)
+/********************************************************************************
+ * 업무명    : 시스템 공통 제어 (System Control)
  * 프로그램ID : SP_INS_RAW_PIP_INFO
  * 프로그램명 : 데이터 파이프라인 실행 이력 기록 및 상태 업데이트
  * 설    명  : 데이터 수집/전송 프로세스의 시작과 종료 시점에 호출되어 
@@ -126,10 +127,18 @@ BEGIN
     ELSE IF @TASK_KEY IS NULL AND @END_TIME IS NOT NULL  
     BEGIN  
         UPDATE [CTL].[LOG_HIST]  
-           SET [PROC_NM] = @PROC_NM, [RUN_STATUS] = @RUN_STATUS, [END_TIME] = @END_TIME  
-             , [DURATION] = DATEDIFF(SECOND, [START_TIME], @END_TIME)
-             /* ... (중략: 필드 업데이트 로직은 위와 동일) ... */
-             , [INPUT_TP] = @INPUT_TP
+           SET [PROC_NM] = @PROC_NM, [SRC_SYS_NM] = @SRC_SYS_NM, [SRC_STRG_CONT_NM] = @SRC_STRG_CONT_NM, [SRC_STRG_PATH_NM] = @SRC_STRG_PATH_NM, [SRC_STRG_FILE_NM] = @SRC_STRG_FILE_NM
+             , [SRC_DB_NM] = @SRC_DB_NM, [SRC_SCHEMA_NM] = @SRC_SCHEMA_NM, [SRC_TABLE_NM] = @SRC_TABLE_NM, [TRGT_SYS_NM] = @TRGT_SYS_NM, [TRGT_STRG_CONT_NM] = @TRGT_STRG_CONT_NM
+             , [TRGT_STRG_PATH_NM] = @TRGT_STRG_PATH_NM, [TRGT_STRG_FILE_NM] = @TRGT_STRG_FILE_NM, [TRGT_DB_NM] = @TRGT_DB_NM, [TRGT_SCHEMA_NM] = @TRGT_SCHEMA_NM, [TRGT_TABLE_NM] = @TRGT_TABLE_NM
+             , [PROC_EXEC_DT] = @PROC_EXEC_DT, [PROC_EXEC_HH] = @PROC_EXEC_HH, [PROC_EXEC_MM] = @PROC_EXEC_MM, [BATCH_TP] = @BATCH_TP, [WORK_NM] = @WORK_NM  
+             , [RUN_STATUS] = @RUN_STATUS, [END_TIME] = @END_TIME, [ERROR_CD] = @ERROR_CD, [ERROR_MSG] = @ERROR_MSG, [PARTITION_KEY] = @PARTITION_KEY
+             , [SRC_STRG_NM] = @SRC_STRG_NM, [TRGT_STRG_NM] = @TRGT_STRG_NM, [SRC_RECORD_CNT] = NULL, [TRGT_RECORD_CNT] = NULL
+			 , [DURATION] = DATEDIFF(SECOND, [START_TIME], @END_TIME)
+			 , [AVG_DURATION] = CASE WHEN @CNT_DURATION < @AVG_CNT THEN NULL ELSE @SUM_DURATION/@CNT_DURATION END
+			 , [OUTLIER] = CASE WHEN @CNT_DURATION < @AVG_CNT  
+					OR ABS(CASE WHEN @CNT_DURATION < @AVG_CNT THEN NULL ELSE @SUM_DURATION/@CNT_DURATION END - (DATEDIFF(SECOND, [START_TIME], @END_TIME)))
+					   <= (@OUTLIER_PER/100.0) * (DATEDIFF(SECOND, [START_TIME], @END_TIME)) THEN NULL ELSE @OUTLIER_TXT END
+			 , [INPUT_TP] = @INPUT_TP
          WHERE [RUN_ID] = @RUN_ID  
            AND [TASK_KEY] IS NULL;
      END  
