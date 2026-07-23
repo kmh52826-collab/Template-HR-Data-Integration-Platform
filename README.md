@@ -69,7 +69,7 @@
 ### Key Layers & Engineering Rationales
 
 #### 🟫 Bronze (Raw Zone)
-* **역할:** 이기종 소스 시스템(다양한 ERP)으로부터 수집된 가공되지 않은 원천 데이터 저장소.
+* **역할:** 이기종 소스 시스템으로부터 수집된 가공되지 않은 원천 데이터 저장소.
 * **설계 근거(Why):** 원천 데이터를 변형 없이 보존함으로써 **데이터 계보(Data Lineage)** 를 명확히 했습니다. 이는 추후 분석 요건이 변경되거나 시스템 장애가 발생했을 때, 소스 시스템에 재접속하지 않고도 언제든 데이터를 재처리(Reprocessing)할 수 있는 **결함 허용(Fault Tolerance)** 능력을 확보하기 위함입니다.
 
 #### 🌫️ Silver (Validated Zone)
